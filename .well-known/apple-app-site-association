@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "5S3B449N96.com.tinyvoices.app",
+        "paths": ["/invite*"]
+      }
+    ]
+  }
+}

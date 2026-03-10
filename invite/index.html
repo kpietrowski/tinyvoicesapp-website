@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny Voices - Family Invite</title>
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_STORE_ID">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Segoe UI', Roboto, sans-serif;
+            background: #FFF8F0;
+            color: #2C2C2C;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .sun {
+            width: 80px;
+            height: 80px;
+            background: #FFD54F;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2C2C2C;
+        }
+        p {
+            font-size: 17px;
+            color: #6B6B6B;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: transform 0.15s;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary {
+            background: #FFD54F;
+            color: #2C2C2C;
+        }
+        .btn-secondary {
+            background: #F5F5F5;
+            color: #2C2C2C;
+        }
+        .footer {
+            margin-top: 24px;
+            font-size: 13px;
+            color: #AAAAAA;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="sun">&#9728;&#65039;</div>
+        <h1>You're Invited!</h1>
+        <p>Someone wants to share their family's precious memories with you on Tiny Voices.</p>
+        <a class="btn btn-primary" id="app-link" href="#">Open in Tiny Voices</a>
+        <a class="btn btn-secondary" href="https://apps.apple.com/app/tiny-voices/idYOUR_APP_STORE_ID">Download Tiny Voices</a>
+    </div>
+    <div class="footer">Tiny Voices &mdash; Where you re-live life's most special moments.</div>
+
+    <script>
+        // Pass the invite code through to the app via custom URL scheme as fallback
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const appLink = document.getElementById('app-link');
+
+        if (code) {
+            // Try custom URL scheme as fallback if universal link didn't open the app
+            appLink.href = 'familymemz://invite?code=' + code;
+        }
+
+        // If the user is on iOS and the universal link didn't fire,
+        // they likely don't have the app — auto-redirect to App Store after delay
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        if (isIOS && code) {
+            setTimeout(function() {
+                // If still on this page after 1.5s, the app isn't installed
+                // Uncomment the line below once you have your App Store ID:
+                // window.location.href = 'https://apps.apple.com/app/tiny-voices/idYOUR_APP_STORE_ID';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
